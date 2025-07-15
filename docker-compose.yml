@@ -21,6 +21,20 @@ services:
     networks:
       - fasttech-net
 
+  gateway-api:
+    build:
+      context: ./src/Gateway.API
+    container_name: Gateway.API
+    ports:
+      - "8000:8000"
+    depends_on:
+      - auth-api
+      - catalog-api
+      - orders-api
+      - kitchen-api
+    networks:
+      - fasttech-net
+
   auth-api:
     image: b1tech/fasttechfoods-auth:v1
     container_name: Auth.API
