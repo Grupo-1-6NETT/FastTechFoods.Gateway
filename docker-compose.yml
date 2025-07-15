@@ -1,0 +1,100 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - fasttech-net
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - fasttech-net
+
+  auth-api:
+    image: b1tech/fasttechfoods-auth:v1
+    container_name: Auth.API
+    ports:
+      - "8081:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__PostgresString: Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME_AUTH};Username=${DB_USER};Password=${DB_PASS}
+      JwtSettings__SecretKey: "${JWT_SECRET}"
+      JwtSettings__ExpiryInMinutes: ${JWT_EXPIRE_MINUTES}
+      Settings__Secret: "${SECRET_KEY}"
+
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - fasttech-net
+
+  catalog-api:
+    image: b1tech/fasttechfoods-catalog:v1
+    container_name: Catalog.API
+    ports:
+      - "8082:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__PostgresString: Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME_CATALOG};Username=${DB_USER};Password=${DB_PASS}
+      JwtSettings__SecretKey: "${JWT_SECRET}"
+      JwtSettings__ExpiryInMinutes: ${JWT_EXPIRE_MINUTES}
+      RabbitMQSettings__Username: "${RABBITMQ_USERNAME}"
+      RabbitMQSettings__Password: "${RABBITMQ_PASSWORD}"
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - fasttech-net
+
+  orders-api:
+    image: b1tech/fasttechfoods-orders:v1
+    container_name: Orders.API
+    ports:
+      - "8083:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__PostgresString: Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME_ORDERS};Username=${DB_USER};Password=${DB_PASS}
+      JwtSettings__SecretKey: "${JWT_SECRET}"
+      JwtSettings__ExpiryInMinutes: ${JWT_EXPIRE_MINUTES}
+      RabbitMQSettings__Username: "${RABBITMQ_USERNAME}"
+      RabbitMQSettings__Password: "${RABBITMQ_PASSWORD}"
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - fasttech-net
+
+  kitchen-api:
+    image: b1tech/fasttechfoods-kitchen:v1
+    container_name: Kitchen.API
+    ports:
+      - "8084:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__PostgresString: Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME_KITCHEN};Username=${DB_USER};Password=${DB_PASS}
+      JwtSettings__SecretKey: "${JWT_SECRET}"
+      JwtSettings__ExpiryInMinutes: ${JWT_EXPIRE_MINUTES}
+      RabbitMQSettings__Username: "${RABBITMQ_USERNAME}"
+      RabbitMQSettings__Password: "${RABBITMQ_PASSWORD}"
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - fasttech-net
+
+volumes:
+  pgdata:
+
+networks:
+  fasttech-net:
