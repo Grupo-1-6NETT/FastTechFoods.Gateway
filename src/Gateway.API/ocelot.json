@@ -22,7 +22,11 @@
         }
       ],
       "UpstreamPathTemplate": "/catalog/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -34,7 +38,11 @@
         }
       ],
       "UpstreamPathTemplate": "/orders/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -46,7 +54,11 @@
         }
       ],
       "UpstreamPathTemplate": "/kitchen/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {
