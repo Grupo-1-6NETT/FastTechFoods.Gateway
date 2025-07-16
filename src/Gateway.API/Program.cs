@@ -7,9 +7,13 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 var secret = builder.Configuration["JwtSettings:SecretKey"];
-var key = Encoding.ASCII.GetBytes(secret);
+var key = Encoding.ASCII.GetBytes(secret!);
 
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+builder.Configuration
+    .AddJsonFile("Settings/ocelot.json", optional: false, reloadOnChange: true)
+    .AddJsonFile("Settings/ocelot.auth.json", optional: false, reloadOnChange: true)
+    .AddJsonFile("Settings/ocelot.routes.json", optional: false, reloadOnChange: true);
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("Bearer", options =>
     {
@@ -25,6 +29,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = builder.Configuration["JwtSettings:Audience"],
         };
     });
+
 builder.Services.AddOcelot();
 
 builder.Services.AddControllers();
