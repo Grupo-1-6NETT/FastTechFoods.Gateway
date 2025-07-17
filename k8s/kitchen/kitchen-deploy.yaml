@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kitchen-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kitchen-api
+  template:
+    metadata:
+      labels:
+        app: kitchen-api
+    spec:
+      containers:
+        - name: kitchen-api
+          image: b1tech/fasttechfoods-kitchen:v1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: ConnectionStrings__PostgresString
+              value: "Host=$(POSTGRES_HOST);Port=$(POSTGRES_PORT);Database=$(POSTGRES_DB_KITCHEN);Username=$(POSTGRES_USER_KITCHEN);Password=$(POSTGRES_PASSWORD_KITCHEN)"
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_HOST
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PORT
+            - name: POSTGRES_DB_KITCHEN
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_DB_KITCHEN
+            - name: POSTGRES_USER_KITCHEN
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER_KITCHEN
+            - name: POSTGRES_PASSWORD_KITCHEN
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD_KITCHEN
+            - name: RabbitMq__Host
+              value: rabbitmq

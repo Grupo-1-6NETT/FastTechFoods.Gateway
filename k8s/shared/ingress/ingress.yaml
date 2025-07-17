@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fasttechfoods-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            path: /auth(/|$)(.*)
+            backend:
+              service:
+                name: auth-api
+                port:
+                  number: 8080
+          - pathType: ImplementationSpecific
+            path: /catalog(/|$)(.*)
+            backend:
+              service:
+                name: catalog-api
+                port:
+                  number: 8080
+          - pathType: ImplementationSpecific
+            path: /orders(/|$)(.*)
+            backend:
+              service:
+                name: orders-api
+                port:
+                  number: 8080
+          - pathType: ImplementationSpecific
+            path: /kitchen(/|$)(.*)
+            backend:
+              service:
+                name: kitchen-api
+                port:
+                  number: 8080
