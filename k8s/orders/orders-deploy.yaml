@@ -15,13 +15,17 @@ spec:
       containers:
         - name: orders-api
           image: b1tech/fasttechfoods-orders:v1
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
             - name: ConnectionStrings__PostgresString
-              value: "Host=$(POSTGRES_HOST);Port=$(POSTGRES_PORT);Database=$(POSTGRES_DB_ORDERS);Username=$(POSTGRES_USER_ORDERS);Password=$(POSTGRES_PASSWORD_ORDERS)"
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_CONNECTION_ORDERS
             - name: POSTGRES_HOST
               valueFrom:
                 configMapKeyRef:
@@ -32,20 +36,5 @@ spec:
                 configMapKeyRef:
                   name: postgres-config
                   key: POSTGRES_PORT
-            - name: POSTGRES_DB_ORDERS
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_DB_ORDERS
-            - name: POSTGRES_USER_ORDERS
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_USER_ORDERS
-            - name: POSTGRES_PASSWORD_ORDERS
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_PASSWORD_ORDERS
             - name: RabbitMq__Host
               value: rabbitmq

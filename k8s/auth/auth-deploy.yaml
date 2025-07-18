@@ -15,13 +15,17 @@ spec:
       containers:
         - name: auth-api
           image: b1tech/fasttechfoods-auth:v1
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
             - name: ConnectionStrings__PostgresString
-              value: "Host=$(POSTGRES_HOST);Port=$(POSTGRES_PORT);Database=$(POSTGRES_DB_AUTH);Username=$(POSTGRES_USER_AUTH);Password=$(POSTGRES_PASSWORD_AUTH)"
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_CONNECTION_AUTH
             - name: POSTGRES_HOST
               valueFrom:
                 configMapKeyRef:
@@ -32,18 +36,3 @@ spec:
                 configMapKeyRef:
                   name: postgres-config
                   key: POSTGRES_PORT
-            - name: POSTGRES_DB_AUTH
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_DB_AUTH
-            - name: POSTGRES_USER_AUTH
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_USER_AUTH
-            - name: POSTGRES_PASSWORD_AUTH
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_PASSWORD_AUTH

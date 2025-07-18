@@ -5,7 +5,7 @@ metadata:
 data:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: "5432"
-  POSTGRES_DB_AUTH: FastTechFoodsAuth
-  POSTGRES_DB_CATALOG: FastTechFoodsCatalog
-  POSTGRES_DB_ORDERS: FastTechFoodsOrders
-  POSTGRES_DB_KITCHEN: FastTechFoodsKitchen
+  POSTGRES_CONNECTION_AUTH: "Host=postgres;Port=5432;Database=FastTechFoodsAuth;Username=postgres;Password=postgres"
+  POSTGRES_CONNECTION_ORDERS: "Host=postgres;Port=5432;Database=FastTechFoodsOrders;Username=postgres;Password=postgres"
+  POSTGRES_CONNECTION_CATALOG: "Host=postgres;Port=5432;Database=FastTechFoodsCatalog;Username=postgres;Password=postgres"
+  POSTGRES_CONNECTION_KITCHEN: "Host=postgres;Port=5432;Database=FastTechFoodsKitchen;Username=postgres;Password=postgres"
