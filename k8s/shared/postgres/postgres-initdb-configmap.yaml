@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-initdb
+  namespace: fasttechfoods
+data:
+  init.sql: |
+    CREATE DATABASE "FastTechFoodsAuth";
+    CREATE DATABASE "FastTechFoodsOrders";
+    CREATE DATABASE "FastTechFoodsCatalog";
+    CREATE DATABASE "FastTechFoodsKitchen";
