@@ -1,20 +1,19 @@
 # Fast Tech Foods - Gateway
 
-Este È um micro serviÁo desenvolvido em .NET Core 8 para gerenciar os endpoints da aplicaÁ„o Fast Tech Foods. 
-Este projeto È parte da soluÁ„o para o Hackathon da Fase 5 do curso de pÛs graduaÁ„o 6NETT na FIAP.
+Este √© um micro servi√ßo desenvolvido em .NET Core 8 para gerenciar os endpoints da aplica√ß√£o Fast Tech Foods. 
+Este projeto √© parte da solu√ß√£o para o Hackathon da Fase 5 do curso de p√≥s gradua√ß√£o 6NETT na FIAP.
 
-## Õndice
-- [PrÈ-requisitos](#prÈ-requisitos)
+## √çndice
+- [Pr√©-requisitos](#pr√©-requisitos)
 - [Overview](#overview)
-- [ConfiguraÁ„o do Projeto](#configuraÁ„o-do-projeto)
-- [Eventos](#eventos)
+- [Configura√ß√£o do Projeto](#configura√ß√£o-do-projeto)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 
-## PrÈ-requisitos
+## Pr√©-requisitos
 
 - [Kubernetes](https://kubernetes.io/pt-br/)
 - [Minikube](https://minikube.sigs.k8s.io/docs/start)
-- [Docker](https://www.docker.com/get-started/) e [Docker Compose](https://docs.docker.com/compose/install/) (necess·rio para executar o projeto)
+- [Docker](https://www.docker.com/get-started/) e [Docker Compose](https://docs.docker.com/compose/install/) (necess√°rio para executar o projeto)
 - [.NET SDK 8.0](https://dotnet.microsoft.com/download/dotnet/8.0) (somente para executar local)
 
 ## Overview
@@ -24,31 +23,31 @@ Este projeto È parte da soluÁ„o para o Hackathon da Fase 5 do curso de pÛs gradu
 **Fluxo do Pedido**
 ![Fluxo Pedido](FastTechFoods-fluxo-pedido.jpg)
 
-## ConfiguraÁ„o do Projeto
+## Configura√ß√£o do Projeto
 
-**1. Clone o repositÛrio:**
+**1. Clone o reposit√≥rio:**
 
    ```bash
    git clone https://github.com/Grupo-1-6NETT/FastTechFoods.Gateway.git
    cd FastTechFoods.Gateway
    ```
 
-**2. Adicione configuraÁıes necess·rias**
+**2. Adicione configura√ß√µes necess√°rias**
 
-Um arquivo `.env` com as vari·veis de ambiente deve ser adicionado na raÌz do projeto. 
+Um arquivo `.env` com as vari√°veis de ambiente deve ser adicionado na ra√≠z do projeto. 
 
-J· na pasta `~/k8s/shared/postgres` devem ser adicionados os seguintes arquivos:
+J√° na pasta `~/k8s/shared/postgres` devem ser adicionados os seguintes arquivos:
 
 - postgre-secret.yaml
 - rabbitmq-secret.yaml
 
 **3. Suba os pods**
 
-Abra uma janela do PowerShell e, na pasta `~/k8s`, execute o script `runall.ps1`. Note que ser· necess·rio permissıes elevadas.
+Abra uma janela do PowerShell e, na pasta `~/k8s`, execute o script `runall.ps1`. Note que ser√° necess√°rio permiss√µes elevadas.
 
 Ou se preferir, execute os seguintes comandos. Certifique-se de estar na pasta `k8`:
 
-Note que alguns comandos exigem que a janela do PS permaneÁa aberta. Pode ser necess·rio abrir mais de uma janela.
+Note que alguns comandos exigem que a janela do PS permane√ßa aberta. Pode ser necess√°rio abrir mais de uma janela.
 
 ```
 minikube start
@@ -80,20 +79,12 @@ minikube dashboard
 
 
 ---
-## Eventos
-|Evento|Fila padr„o|DescriÁ„o|
-|---|---|---|
-|AddItem|additem|Adiciona um item no card·pio|
-|DeleteItem|deleteitem|Remove um item do card·pio|
-|UpdateItem|updateitem|Atualiza um item no card·pio|
-
----
 ## Tecnologias Utilizadas
-- **ASP.NET Core 8** - Framework principal para desenvolvimento do serviÁo
-- **Entity Framework Core** - ORM para manipulaÁ„o do banco de dados
+- **ASP.NET Core 8** - Framework principal para desenvolvimento do servi√ßo
+- **Entity Framework Core** - ORM para manipula√ß√£o do banco de dados
 - **Postgres** - Banco de dados
 - **RabbitMQ** - Message Broker
 - **MassTransit** - Transporte de mensagens
-- **Docker** - CriaÁ„o de conteiners
-- **Kubernets** e **Minikube** - OrquestraÁ„o de containers
+- **Docker** - Cria√ß√£o de conteiners
+- **Kubernets** e **Minikube** - Orquestra√ß√£o de containers
 - **Prometheus** e **Grafana** - Monitoramento
